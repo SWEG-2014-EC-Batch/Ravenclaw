@@ -98,5 +98,12 @@ int main(){
             ++k2;
             binary /= 10;
         }
+        
+        // Convert decimal to octal
+        for(int i = 0; decimal_2 > 0; i++){
+            octal[i] = decimal_2 % 8;
+            decimal_2 /= 8;
+            count_1++;
+        }
     }  
 }
