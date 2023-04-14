@@ -105,5 +105,19 @@ int main(){
             decimal_2 /= 8;
             count_1++;
         }
+        
+        //* Binary to hexadecimal
+        
+        binary += binary_1;
+        int decimal_3 = 0, k3 = 0, count_2 = 0;
+        char hex[30];
+
+        // to decimal
+        while(binary){
+            decimal_3 += (binary % 10) * pow(2, k3);
+            ++k3;
+            binary /= 10;
+        }
+
     }  
 }
