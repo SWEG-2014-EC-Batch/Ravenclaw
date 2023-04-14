@@ -89,6 +89,14 @@ int main(){
         //cout << "Decimal Number = " << decimal_1;
 
         //* Binary to Octal
+         binary += binary_1;
+         int decimal_2 = 0, k2 = 0, octal[30], count_1 = 0;
         
+        // Convert binary to decimal
+        while (binary) {
+            decimal_2 += (binary % 10) * pow(2, k2);
+            ++k2;
+            binary /= 10;
+        }
     }  
 }
