@@ -72,3 +72,23 @@ int main(){
             cout << hex[b];
         }       
         cout << endl;     
+    } 
+    else if(choice=='b'){
+        //* binary to decimal
+        long long binary,decimal_1=0,k1=0,remainder_1;
+        int binary_1;
+        cout<<"enter a number having a base 2:";
+        cin>>binary;
+        binary_1=binary;
+        while (binary != 0) {
+            remainder_1 = binary % 10;
+            binary /= 10;
+            decimal_1 += remainder_1 * pow(2, k1);
+            ++k1;
+        }
+        //cout << "Decimal Number = " << decimal_1;
+
+        //* Binary to Octal
+        
+    }  
+}
