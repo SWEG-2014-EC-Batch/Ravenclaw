@@ -111,3 +111,50 @@ int main(){
             decimal_2 /= 8;
             count_1++;
         }
+
+        //* Binary to hexadecimal
+        
+        binary += binary_1;
+        int decimal_3 = 0, k3 = 0, count_2 = 0;
+        char hexadecimal[30];
+
+        // to decimal
+        while(binary){
+            decimal_3 += (binary % 10) * pow(2, k3);
+            ++k3;
+            binary /= 10;
+        }
+
+        // to hexadecimal
+        for(int a = 0; decimal_3 > 0; a++){
+            int remainder_2;
+            remainder_2 = decimal_3 % 16;
+
+            if(remainder_2 >= 10){
+                hexadecimal[a] = remainder_2 + 55;
+            }
+            if(remainder_2 < 10){
+                hexadecimal[a] = remainder_2 + 48;
+            }
+            decimal_3 /= 16;
+            count_2++;
+        }
+        
+
+        //* Table
+        binary += binary_1;
+        cout << "Binary\t\tDecimal\t\tOctal\t\tHexadecimal" << endl;
+        cout << "---------------------------------------------------------------------";
+
+        cout << "\n"<<binary << "\t\t" << decimal_1 << "\t\t";
+        for(int j = count_1 - 1; j >= 0; j--){
+            cout << octal[j];
+        }
+        cout << "\t\t"; 
+        for(int b = count_2 - 1; b >= 0; b--){
+            cout << hexadecimal[b];
+        }
+        cout << "\t\t";
+        cout << endl;
+
+    }
