@@ -3,39 +3,37 @@
 #include <cmath>
 #include <string>
 using namespace std;
-
 int main(){
-
     char choice;
     cout << "Enter your choice of number type: " << endl;
     cout << "a, Decimal\nb, Binary\nc, Octal\nd, Hexadecimal";
     cout << "\nEnter your choice: " ;
     cin >> choice;
 
-    if(choice == 'a') {
+        if(choice == 'a') {
         
-        int num1, num2, num3;
-        int count_1 = 0, binary[50], count_2 = 0, octal[20], count_3 = 0;
-        char hexadecimal[100]; 
+            int num1, num2, num3;
+            int count_1 = 0, binary[50], count_2 = 0, octal[20], count_3 = 0;
+            char hexadecimal[100]; 
 
-        cout << "Enter a positive integer with base 10: ";
-        cin >> num1;
-        
-        //* decimal to binary
+            cout << "Enter a positive integer with base 10: ";
+            cin >> num1;
 
-        num2 = num1;
-        for(int i = 0; num1 > 0; i++){
-            binary[i] = num1 % 2;
-            num1 /= 2;
-            count_1++; 
-        }
+            //* decimal to binary
 
-        //* decimal to octal
+            num2 = num1;
+            for(int i = 0; num1 > 0; i++){
+                binary[i] = num1 % 2;
+                num1 /= 2;
+                count_1++; 
+            }
+
+        // decimal to octal
         num1 += num2;
         for(int x = 0; num1>0; x++){
-            octal[x] = num1 % 8;
-            num1 /= 8;
-            count_2++;
+                octal[x] = num1 % 8;
+                num1 /= 8;
+                count_2++;
         }
 
         //* decimal to hexadecimal
@@ -47,10 +45,10 @@ int main(){
 
             if(remainder >= 0 && remainder < 10){
                 hexadecimal[a] = remainder + 48;
-            }
+               }
             else if(remainder >= 10){
                 hexadecimal[a] = remainder + 55;
-            }
+               }
             num1 /= 16;
             count_3++;
         }
@@ -63,24 +61,22 @@ int main(){
         cout << num1 << "\t\t";
         for(int j = count_1 - 1; j >= 0; j--){
             cout << binary[j]; 
-        }        
+           }        
         cout << "\t\t";
         for(int y = count_2 - 1; y>=0; y--){
             cout << octal[y];
-        }       
+           }       
         cout << "\t\t";
         for(int b = count_3 - 1; b>= 0; b--){
             cout << hexadecimal[b];
-        }       
+           }       
         cout << endl;     
-
-    }
+       }
     else if(choice == 'b'){
         
         //* Binary to Decimal
         long long binary, decimal_1 = 0, k1 = 0, remainder_1;
         int binary_1;
-
 
         cout << "Enter a binary number with base 2: ";
         cin >> binary;
@@ -92,7 +88,6 @@ int main(){
             decimal_1 += remainder_1 * pow(2, k1);
             ++k1;
         }
-        //cout << "Decimal Number = " << decimal_1;
 
         //* Binary to Octal
         binary += binary_1;
@@ -123,7 +118,7 @@ int main(){
             decimal_3 += (binary % 10) * pow(2, k3);
             ++k3;
             binary /= 10;
-        }
+            }
 
         // to hexadecimal
         for(int a = 0; decimal_3 > 0; a++){
