@@ -1,3 +1,4 @@
+// hallow diamond pattern
 #include<iostream>
 using namespace std;
 int main()
