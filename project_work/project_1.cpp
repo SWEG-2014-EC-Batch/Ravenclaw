@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cmath>
 #include <string>
+#include <iomanip>
+ 
 using namespace std;
 
 int main(){
@@ -13,73 +15,79 @@ int main(){
 
     if(choice == 'a') {
         
-        int num, num1, num3;
-        int count_1 = 0, bin[50], count_2 = 0, octal[20], count_3 = 0;
-        char hex[100]; 
+        int num1, num2, num3;
+        int count_1 = 0, binary[30], count_2 = 0, octal[20], count_3 = 0;
+        char hexadecimal[30]; 
+        int binaryHolder = 0, octalHolder = 0;
 
         cout << "Enter a positive integer with base 10: ";
-        cin >> num;
+        cin >> num1;
         
         //* decimal to binary
 
-        num1 = num;
-        for(int i = 0; num > 0; i++){
-            bin[i] = num % 2;
-            num /= 2;
+        num2 = num1;
+        for(int i = 0; num1 > 0; i++){
+            binary[i] = num1 % 2;
+            num1 /= 2;
             count_1++; 
         }
 
         //* decimal to octal
-        num += num1;
-        for(int x = 0; num>0; x++){
-            octal[x] = num % 8;
-            num /= 8;
+        num1 += num2;
+        for(int x = 0; num1 > 0; x++){
+            octal[x] = num1 % 8;
+            num1 /= 8;
             count_2++;
         }
 
         //* decimal to hexadecimal
-        num += num1;
-        for(int a = 0; num >0; a++){
+        num1 += num2;
+        for(int a = 0; num1 >0; a++){
             
             int remainder = 0; 
-            remainder = num % 16;
+            remainder = num1 % 16;
 
             if(remainder >= 0 && remainder < 10){
-                hex[a] = remainder + 48;
+                hexadecimal[a] = remainder + 48;
             }
             else if(remainder >= 10){
-                hex[a] = remainder + 55;
+                hexadecimal[a] = remainder + 55;
             }
-            num /= 16;
+            num1 /= 16;
             count_3++;
         }
 
         //*Constructing table
-        cout << endl;
-        num += num1;
-        cout << "Decimal"<< "\t\tBinary"  << "\t\tOctal"  << "\t\tHexadecimal" << endl;
-        cout << "-------------------------------------------------------------" << endl;
-        cout << num << "\t\t";
+        num1 += num2;
+        cout << left;
+        cout << setw(12) << "Decimal" << setw(15) << "Binary" << setw(12) << "Octal" << setw(12) << "Hexadecimal" << endl;
+
+        for(int s = 1; s <= 51; s++) cout << "-";
+
+        cout << endl << left;
+        cout << setw(12) << num1;
+
+        cout << setw(15);
         for(int j = count_1 - 1; j >= 0; j--){
-            cout << bin[j]; 
-        }        
-        cout << "\t\t";
+            binaryHolder = (binaryHolder * 10) + binary[j]; 
+        } 
+        cout << binaryHolder << setw(12);
         for(int y = count_2 - 1; y>=0; y--){
-            cout << octal[y];
-        }       
-        cout << "\t\t";
+            octalHolder = (octalHolder * 10) + octal[y];
+        }   
+        cout << octalHolder;
         for(int b = count_3 - 1; b>= 0; b--){
-            cout << hex[b];
-        }       
+            cout << hexadecimal[b];
+        }   
         cout << endl;     
 
     }
     else if(choice == 'b'){
         
         //* Binary to Decimal
-        long long binary, decimal_1 = 0, k1 = 0, remainder_1;
-        int binary_1;
-
+        long long binary;
+        int binary_1, decimal_1 = 0, k1 = 0, remainder_1;
+        int octal_holder = 0;
 
         cout << "Enter a binary number with base 2: ";
         cin >> binary;
@@ -139,22 +147,3 @@ int main(){
             decimal_3 /= 16;
             count_2++;
         }
-          //* Table
-
-        binary += binary_1;
-        for(int j = count_1 - 1; j >= 0; j--){
-            octal_holder = (octal_holder * 10 ) + octal[j];
-        }
-        
-        cout << left;
-        cout << setw(15) << "Binary" << setw(12) << "Decimal" << setw(12) << "Octal" << setw(12) << "Hexadecimal" << endl;
-        for(int s = 1; s <= 50; s++) cout << "-";
-        cout << endl;
-
-        cout << setw(15) << binary << setw(12) << decimal_1 << setw(12) << octal_holder << setw(12);
-        for(int b = count_2 - 1; b >= 0; b--){
-            cout << hex[b];
-        }
-        cout << endl;
-
-    }
