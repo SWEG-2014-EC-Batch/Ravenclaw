@@ -132,5 +132,21 @@ int main(){
             ++k3;
             binary /= 10;
         }
+       
+        // to hexadecimal
+        for(int a = 0; decimal_3 > 0; a++){
+            int remainder_2;
+            remainder_2 = decimal_3 % 16;
+
+            if(remainder_2 >= 10){
+                hex[a] = remainder_2 + 55;
+            }
+            if(remainder_2 < 10){
+                hex[a] = remainder_2 + 48;
+            }
+            decimal_3 /= 16;
+            count_2++;
+        }
+        
 
        
