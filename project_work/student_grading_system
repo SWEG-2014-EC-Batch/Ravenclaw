@@ -54,3 +54,52 @@ int main() {
         }
         testscore = 0;
     }
+  for (int k = 0; k < num; k++){
+        for (int j = 0; j <= 22; j++){
+
+            cout << endl << databaseTitle [j] << ": " << studentDatabase [j][k] << endl;
+        }
+    }
+    //top students
+    cout << endl << "TOP STUDENTS" << endl;
+    for (int i = 0; i < num; ++i) {
+        for (int j = 0; j < num; ++j) {
+            if(studentDatabase[21][i]>studentDatabase[21][j])
+            {
+                for (int k = 0; k < 23; k++) {
+                    swap (studentDatabase[k][i], studentDatabase[k][j]);
+                }
+            }
+        }
+    }
+    for (int i = 0; i < 5 ; ++i) {
+        for (int j = 0; j < 23; ++j) {
+            cout << studentDatabase[j][i] << "\t";
+        }
+        cout << endl;
+    }
+    //search student ID
+    cout << "SEARCH STUDENT" << endl;
+    search_code:
+    string search;
+    int x = 0;
+    cout << endl << "Search student ID: ";
+    cin >> search;
+    for (int i = 0; i < num; i++){
+        if (search == studentDatabase [0][i]) {
+            for (int j = 0; j < 23; j++) {
+                cout << studentDatabase[j][i] << "\t";
+            }
+            x++;
+        }
+    }
+    if (x==0){
+        cout << "Student not found";
+    }
+    char repeat;
+    cout << "Do you want to search for another name? type 'y' for yes and 'n' for no";
+    cin >> repeat;
+    if (repeat == 'y'){
+        goto search_code;
+    }
+}
