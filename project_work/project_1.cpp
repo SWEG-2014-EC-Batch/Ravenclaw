@@ -330,3 +330,29 @@ int main(){
             decimal_3 /= 8;
             count_2++;
         }
+        //* Table
+        hex = hex_2;
+        int binary_holder = 0;
+        
+        for(int b = count_1 - 1; b >= 0; b--){
+            binary_holder = (binary_holder * 10) + binary[b];
+        }
+        
+        cout << left;
+        cout << setw(12) << "Hexadecimal" << setw(12) << "Decimal" << setw(15) << "Binary" << setw(12) << "Octal" << endl;
+        for(int i = 1; i <= 51; i++) cout << "-";
+
+        cout << endl << left;
+        cout << setw(12) << hex << setw(12) << decimal_1 << setw(15) << binary_holder;
+        for(int y = count_2 - 1; y >= 0; y--){
+            cout << octal[y];
+        }
+
+        cout << endl;
+
+    }else {
+        cout << "Invalid Input";
+    }
+    cout << endl;
+        
+}
