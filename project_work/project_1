@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cmath>
 #include <string>
+#include <iomanip>
 using namespace std;
 int main(){
     char choice;
@@ -15,7 +16,7 @@ int main(){
             int num1, num2, num3;
             int count_1 = 0, binary[50], count_2 = 0, octal[20], count_3 = 0;
             char hexadecimal[100]; 
-
+            int binaryHolder = 0, octalHolder = 0;
             cout << "Enter a positive integer with base 10: ";
             cin >> num1;
 
@@ -55,23 +56,30 @@ int main(){
 
         //*Constructing table
         cout << endl;
-        num1 += num1;
-        cout << "Decimal"<< "\t\tBinary"  << "\t\tOctal"  << "\t\tHexadecimal" << endl;
-        cout << "-------------------------------------------------------------" << endl;
-        cout << num1 << "\t\t";
+        num1 += num2;
+        cout << left;
+        cout << setw(12) << "Decimal" << setw(15) << "Binary" << setw(12) << "Octal" << setw(12) << "Hexadecimal" << endl;
+
+        for(int s = 1; s <= 51; s++) cout << "-";
+
+        cout << endl << left;
+        cout << setw(12) << num1;
+
+        cout << setw(15);
         for(int j = count_1 - 1; j >= 0; j--){
-            cout << binary[j]; 
-           }        
-        cout << "\t\t";
+            binaryHolder = (binaryHolder * 10) + binary[j]; 
+        } 
+        cout << binaryHolder << setw(12);
         for(int y = count_2 - 1; y>=0; y--){
-            cout << octal[y];
-           }       
-        cout << "\t\t";
+            octalHolder = (octalHolder * 10) + octal[y];
+        }   
+        cout << octalHolder;
         for(int b = count_3 - 1; b>= 0; b--){
             cout << hexadecimal[b];
-           }       
+        }   
         cout << endl;     
-       }
+
+    }
     else if(choice == 'b'){
         
         //* Binary to Decimal
@@ -137,19 +145,20 @@ int main(){
         
 
         //* Table
-        binary += binary_1;
-        cout << "Binary\t\tDecimal\t\tOctal\t\tHexadecimal" << endl;
-        cout << "---------------------------------------------------------------------";
-
-        cout << "\n"<<binary << "\t\t" << decimal_1 << "\t\t";
+         binary += binary_1;
         for(int j = count_1 - 1; j >= 0; j--){
-            cout << octal[j];
+            octal_holder = (octal_holder * 10 ) + octal[j];
         }
-        cout << "\t\t"; 
-        for(int b = count_2 - 1; b >= 0; b--){
-            cout << hexadecimal[b];
-        }
-        cout << "\t\t";
+        
+        cout << left;
+        cout << setw(15) << "Binary" << setw(12) << "Decimal" << setw(12) << "Octal" << setw(12) << "Hexadecimal" << endl;
+        for(int s = 1; s <= 50; s++) cout << "-";
         cout << endl;
 
-      }
+        cout << setw(15) << binary << setw(12) << decimal_1 << setw(12) << octal_holder << setw(12);
+        for(int b = count_2 - 1; b >= 0; b--){
+            cout << hex[b];
+        }
+        cout << endl;
+
+    }
