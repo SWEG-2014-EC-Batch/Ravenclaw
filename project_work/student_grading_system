@@ -1,0 +1,56 @@
+#include <iostream>
+
+using namespace std;
+int main() {
+    //declaration
+
+    const float PERCENTAGE = 5/2;
+    int num;
+    int testscore = 0;
+    string correctAnswer[20];
+    string databaseTitle[23] = {"Student ID", "Answer 1", "Answer 2", "Answer 3", "Answer 4", "Answer 5", "Answer 6", "Answer 7", "Answer 8", "Answer 9", "Answer 10", "Answer 11", "Answer 12", "Answer 13", "Answer 14", "Answer 15", "Answer 16", "Answer 17", "Answer 18", "Answer 19", "Answer 20", "Test Score", "Grade"};
+    cout << "STUDENT GRADE DATABASE" << endl;
+    cout << "Enter the correct test answers in correct order" << endl;
+
+    for (int i = 0; i <= 19; i++) {
+        cin >> correctAnswer [i];
+    }
+
+    cout << "Enter the amount of students" << endl;
+    cin >> num;
+    string studentDatabase [23][num];
+
+
+    //Answer Checker
+
+    for (int i = 0; i < num; i++) {
+        cout << "Enter student ID" << endl;
+        cin >> studentDatabase[0][i];
+        cout << "Enter the student answers" << endl;
+        for (int j = 1; j <= 20; j++) {
+            cin >> studentDatabase[j][i];
+            if (studentDatabase[j][i] == correctAnswer[j - 1]) {
+                testscore += 2;
+            } else if (studentDatabase[j][i] == "") {
+                testscore += 0;
+            } else if (studentDatabase[j][i] != correctAnswer[j - 1]) {
+                testscore += 1;
+            }
+        }
+
+        //Grade Calculator
+
+        studentDatabase[21][i] = std::to_string(testscore);
+        if (testscore <= (40 * PERCENTAGE) && testscore >= (36 * PERCENTAGE)) {
+            studentDatabase[22][i] = {"A"};
+        } else if (testscore < (36 * PERCENTAGE) && testscore >= (32 * PERCENTAGE)) {
+            studentDatabase[22][i] = {"B"};
+        } else if (testscore < (32 * PERCENTAGE) && testscore >= (28 * PERCENTAGE)) {
+            studentDatabase[22][i] = {"C"};
+        } else if (testscore < (28 * PERCENTAGE) && testscore >= (24 * PERCENTAGE)) {
+            studentDatabase[22][i] = {"D"};
+        } else if (testscore < (24 * PERCENTAGE) && testscore >= 0) {
+            studentDatabase[22][i] = {"F"};
+        }
+        testscore = 0;
+    }
