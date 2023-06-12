@@ -1,0 +1,19 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+double formula(double cubedNum1,double sqrtNum2); 
+int main(){
+    double num1,num2,cubedNum1,sqrtNum2,answer;
+    cout<<"enter a number 1: ";
+    cin>>num1;
+    cubedNum1=num1*num1*num1;
+    cout<<"enter a number 2: ";
+    cin>>num2;
+    sqrtNum2= sqrt(num2);
+    answer=formula(cubedNum1,sqrtNum2);
+    cout<<"the result is"<<answer;
+}
+double formula(double cubedNum1,double sqrtNum2){
+    return cubedNum1+sqrtNum2;
+}
+  
