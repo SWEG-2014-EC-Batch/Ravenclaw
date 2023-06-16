@@ -1,0 +1,18 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+double hypotenuse (double squareSide1,double squareSide2);
+int main(){
+    double side1,side2,squareSide1,squareSide2,hypo;
+    cout<<"enter side 1: ";
+    cin>>side1;
+    cout<<"enter side 2: ";
+    cin>>side2;
+    squareSide1=pow(side1,2);
+    squareSide2=pow(side2,2);
+    hypo=hypotenuse (squareSide1,squareSide2);
+    cout<<"The hypotenous of the triangle is: "<<hypo;   
+} 
+double hypotenuse (double squareSide1,double squareSide2){
+    return sqrt(squareSide1+squareSide2);
+}
