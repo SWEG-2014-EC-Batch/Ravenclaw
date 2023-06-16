@@ -1,0 +1,20 @@
+#include <iostream>
+using namespace std;
+//function declaration or prototype
+double getProduct(int firstNum,double secondNum); 
+int main(){
+
+  int firstNum;
+  double secondNum,multip;
+
+    cout<<"Please enter two numbers: ";
+    cin>>firstNum>>secondNum;
+
+         multip=getProduct(firstNum,secondNum);//actual parameters
+
+         cout<<"the multiple of two is: "<<multip;
+}
+double getProduct(int num1,double num2){//formal parameters
+
+    return num1*num2;
+}
