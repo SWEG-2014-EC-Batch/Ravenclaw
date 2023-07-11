@@ -2,7 +2,7 @@
 #include"myfxn.h"
 #include"newfxn.h"
 using namespace std;
-//function declaration or prototype
+
 int main(){
 
   int firstNum;
