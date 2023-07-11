@@ -1,0 +1,4 @@
+callway G      6.00      40
+hanson p       5.00      48
+lassard D      6.50      38
+stillman W.    8.00      50
