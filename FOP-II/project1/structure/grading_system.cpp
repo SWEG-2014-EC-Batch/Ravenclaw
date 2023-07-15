@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <algorithm>
 
 using namespace std;
 
@@ -98,13 +97,25 @@ void calculateStudentGrade(string correctAnswer[NUM_ANSWERS], Student& student) 
 }
 // Function to display the top students based on their test scores
 void displayTopStudents(Student studentDatabase[], int num) {
-    // Sort the students based on their test scores
-    sort(studentDatabase, studentDatabase + num, [](const Student& a, const Student& b) {
-        return a.score > b.score;
-    });
+    // Sort the students based on their test scores using the bubble sort algorithm
+    for (int i = 0; i < num - 1; ++i) {
+        for (int j = 0; j < num - i - 1; ++j) {
+            if (studentDatabase[j].score < studentDatabase[j+1].score) {
+                swap(studentDatabase[j], studentDatabase[j+1]);
+            }
+        }
+    }
+
+    // Count the number of students with positive scores
+    int count = 0;
+    for (int i = 0; i < num; ++i) {
+        if (studentDatabase[i].score > 0) {
+            count++;
+        }
+    }
 
     // Display the top students
-    int top = min(num, count_if(studentDatabase, studentDatabase + num, [](const Student& s) { return s.score > 0; }));
+    int top = min(num, count);
     cout << endl << "TOP " << top << " STUDENTS" << endl;
     for (int i = 0; i < top; ++i) {
         cout << DATABASE_TITLE[0] << ": " << studentDatabase[i].id << endl;
@@ -116,6 +127,7 @@ void displayTopStudents(Student studentDatabase[], int num) {
         cout << endl;
     }
 }
+
 
 // Function to search for a student by ID
 void searchStudent(Student studentDatabase[], int num) {
