@@ -1,0 +1,64 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+struct tool{
+    int rec;
+    string tName;
+    int quan;
+    double price;
+};
+tool tool1[100];
+
+void get(int i){
+  tool1[i].rec = i + 1;
+  cout<<"\nEnter tool name for rec"<<i+1<<": ";
+  cin>>tool1[i].tName;
+  cout<<"\nEnter quan: ";
+  cin>>tool1[i].quan;
+  cout<<"\nEnter price : ";
+  cin>>tool1[i].price;
+}
+
+void Add(int i){
+  ofstream outfl;
+  outfl.open("hardware.dat",ios::app|ios::binary);
+
+    get(i);
+  outfl.write( (char *) &tool1[i], sizeof(tool1[i]) );
+  outfl.close();
+}
+
+void read()
+{
+  fstream infl;
+  infl.open("hardware.dat", ios::in|ios::binary); 
+
+  cout<<"\nrec\tTool Name\tquan\tprice\n";
+
+  infl.read( (char *) &tool1[0], sizeof(tool1[0]) ); 
+  int i = 0;
+  while(infl.eof() == false){
+    if(tool1[i].rec == 0){
+        continue;
+    }
+    cout << tool1[i].rec << "\t|\t" << tool1[i].tName << "\t|\t" << tool1[i].quan << "\t|\t" << tool1[i].price;
+    i++;
+    infl.read( (char *) &tool1[i], sizeof(tool1[i]) ); 
+  }
+  infl.close();
+}
+
+
+int main(){
+
+    int num;
+    cout<<"How many records of tools do you want to enter: ";
+    cin>>num;
+    for(int i = 0; i < num; i++){
+        Add(i);
+    }
+    read();
+
+    
+}
