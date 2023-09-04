@@ -1,0 +1,12 @@
+//To insert elements into a multimap
+
+std::multimap<int, std::string> studentMultimap;
+studentMultimap.insert(std::make_pair(1, "John"));
+studentMultimap.insert(std::make_pair(2, "Alice"));
+studentMultimap.insert(std::make_pair(1, "Michael"));
+
+// Accessing elements using iterators
+for (auto it = studentMultimap.begin(); it != studentMultimap.end(); ++it) {
+    std::cout << it->first << ": " << it->second << std::endl;
+}
+
