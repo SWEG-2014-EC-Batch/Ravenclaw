@@ -282,3 +282,36 @@ void registerPatient() {
         cout<<endl<<"No such patient exists at our facility"<<endl<<endl;
     }
 
+    void generateReports() {
+        int males=0,females=0,totalCount=0,vacantBeds=0,IN=0,OUT=0;
+
+        for(int i = 0; i < patients.size();i++)
+        {
+            totalCount++;
+            if(patients[i].sex=="Male" || patients[i].sex=="male")males++;
+            else if (patients[i].sex == "Female" || patients[i].sex=="female")females++;
+
+            if(patients[i].type == 1) IN++;
+            else if(patients[i].type == 2) OUT++;
+        }
+        double occupancyRate;
+        vacantBeds = MAXBEDS - IN;
+        occupancyRate = (IN*100) / MAXBEDS;
+        cout << endl<<"number of males admitted: "<<males<<endl;
+        cout << "number of females admitted: "<<females<<endl;
+        cout << "current patients: "<<totalCount<<endl;
+        cout << "number of Vacant beds: "<<vacantBeds<<endl;
+        cout << "current bed occupancy percentage: "<<occupancyRate<<"%"<<endl;
+        cout << "number of outpatient: "<<OUT<<endl;
+        cout << "number of inpatients: "<<IN<<endl<<endl;
+        // Generate various statistical reports
+        // Add your implementation here
+    }
+    static bool byNameInc(const Patient& p1, const Patient& p2)
+    {
+        if (strcmp(p1.name.c_str(),p2.name.c_str()) >= 0)
+            return false;
+        else{
+            return true;
+        }
+    }
