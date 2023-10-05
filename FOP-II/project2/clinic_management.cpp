@@ -128,3 +128,68 @@ void registerPatient() {
             newfile.close(); //close the file object
         }
     }
+ // Function to display patient records
+    void displayRecords() {
+        string name;
+        cout << "Enter name of patient you want to display: ";
+        getline(cin, name);
+        for(int i = 0 ; i < patients.size() ; i++)
+        {
+            if (name == patients[i].name){
+            cout <<endl<< "Name:" << patients[i].name<<endl;
+            cout << "Sex:" << patients[i].sex<<endl;
+            cout << "Weight:" << patients[i].weight<<endl;
+            cout << "Height:" << patients[i].height<<endl;
+            cout << "BMI:" << calculateBMI(patients[i].weight, patients[i].height)<<endl;
+            cout << "Weight Level:";
+            if (patients[i].sex == "male" || patients[i].sex == "Male"){
+                    if (calculateBMI(patients[i].weight, patients[i].height) <= 18.5){
+                        cout<< "underweight";
+                    } else if (calculateBMI(patients[i].weight, patients[i].height) > 18.5 && calculateBMI(patients[i].weight, patients[i].height) <= 24.9){
+                        cout<< "normal weight";
+                    } else if (calculateBMI(patients[i].weight, patients[i].height) > 24.9 && calculateBMI(patients[i].weight, patients[i].height) <= 29.9){
+                        cout<< "overweight";
+                    } else if (calculateBMI(patients[i].weight, patients[i].height) >= 30){
+                        cout << "obese";
+                    }
+                } else if (patients[i].sex == "female" || patients[i].sex == "Female"){
+                    if (calculateBMI(patients[i].weight, patients[i].height) <= 20){
+                        cout<< "underweight";
+                    } else if (calculateBMI(patients[i].weight, patients[i].height) > 20 && calculateBMI(patients[i].weight, patients[i].height) <= 27){
+                        cout<< "normal weight";
+                    } else if (calculateBMI(patients[i].weight, patients[i].height) > 27 && calculateBMI(patients[i].weight, patients[i].height) <= 32){
+                        cout<< "overweight";
+                    } else if (calculateBMI(patients[i].weight, patients[i].height) > 32){
+                        cout << "obese";
+                    }
+                } cout <<endl;
+            cout << "Patient Medical History: " <<patients[i].history<<endl;
+            cout << "Services required: " <<patients[i].serviceDetails<<endl;
+            if (patients[i].type == 1)
+            {
+                cout<<"Type: in-patient"<<endl;
+                cout<<"Number of days at hospital: "<<patients[i].numberOfDaysStayed<<endl;
+                cout<<"Level of severity: ";
+                if (patients[i].numberOfDaysStayed < 10){
+                    cout << "Low Severity";
+                } else if (patients[i].numberOfDaysStayed >=10 && patients[i].numberOfDaysStayed < 30){
+                    cout << "Medium Severity";
+                } else if (patients[i].numberOfDaysStayed >= 30){
+                    cout << "High Severity";
+                } cout << endl;
+                cout<<"Cost of bedding: ";
+                double cost;
+                cost = patients[i].numberOfDaysStayed * 50;
+                cout << cost << " dollars";
+            }
+            else{
+                cout<<"Type: out-patient"<<endl;
+                cout<<"Appointment date: "<<patients[i].dateOfAppointment<<endl<<endl;
+            } cout << endl << endl;
+            return ;
+            }
+        }
+        cout<<endl<<"No such patient exists at our facility"<<endl<<endl;
+        // Display patient records in a table format
+        // Add your implementation here
+    }
