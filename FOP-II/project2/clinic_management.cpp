@@ -74,3 +74,57 @@ public:
 
     }
 
+void registerPatient() {
+        // Get patient details from user input
+        Patient patient;
+        cout << "Enter patient name: ";
+        cin.ignore();
+        getline(cin, patient.name);
+        cout << "Enter patient sex: ";
+        getline(cin, patient.sex);
+        cout << "Enter patient weight in kgs: ";
+        cin >> patient.weight;
+        cout << "Enter patient height in cms: ";
+        cin >> patient.height;
+        cout << "Enter patient history: ";
+        cin.ignore();
+        getline(cin, patient.history);
+        cout << "Enter 1 for in-patient and 2 for out-patient: ";
+        cin >> patient.type;
+        if (patient.type == 1) {
+            cout << "Enter number of days the patient is gonna stay at the hospital: ";
+            cin >> patient.numberOfDaysStayed;
+            patient.dateOfAppointment = "None";
+            patient.serviceDetails = "Nursing";
+        } else {
+            cout << "Enter the day of the appointment: ";
+            cin >> patient.dateOfAppointment;
+            cout << "Enter what kind of services are required: ";
+            cin.ignore();
+            getline(cin, patient.serviceDetails);
+            patient.numberOfDaysStayed = 0;
+        }
+        cin.ignore();
+        cout << patients.size();
+        // Add patient to records
+        patients.push_back(patient);
+        fstream newfile;
+        newfile.open("patientData.txt", ios::out);  // open a file to perform write operation using file object
+        if (newfile.is_open()) {//checking whether the file is open {
+            for (int i = 0; i < patients.size(); i++) {
+                newfile << patients[i].name + "\n";
+                newfile << patients[i].sex + "\n";
+                newfile << patients[i].weight << endl;
+                newfile << patients[i].height << endl;
+                newfile << patients[i].history << endl;
+                newfile << patients[i].serviceDetails << endl;
+                newfile << patients[i].type << endl;
+                newfile << patients[i].numberOfDaysStayed << endl;
+                newfile << patients[i].dateOfAppointment << endl;
+
+
+            }
+            //inserting text
+            newfile.close(); //close the file object
+        }
+    }
