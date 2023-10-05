@@ -193,3 +193,92 @@ void registerPatient() {
         // Display patient records in a table format
         // Add your implementation here
     }
+
+    // Function to edit patient records
+    void editRecords() {
+        int choice;
+        string inputstring;
+        double inputdouble;
+        string name;
+        cout << "Enter name of patient you want to edit: ";
+        cin >> name;
+        for (int i = 0; i < patients.size(); i++) {
+            if (name == patients[i].name) {
+                cout << "What data do you want to change?" << endl;
+                cout << "1. Name" << endl;
+                cout << "2. Sex" << endl;
+                cout << "3. Weight" << endl;
+                cout << "4. Height" << endl;
+                cout << "5. Medical History" << endl;
+                cout << "6. Service Details" << endl;
+                cout << "7. Delete all Patient information of " << patients[i].name <<endl;
+                cout << "8. back to Main Menu" << endl;
+                cin >> choice;
+                switch (choice) {
+                    case 1:
+                        cout << "Enter input";
+                        cin.ignore();
+                        getline(cin, inputstring);
+                        patients[i].name = inputstring;
+                        break;
+                    case 2:
+                        cout << "Enter input";
+                        cin.ignore();
+                        getline(cin, inputstring);
+                        patients[i].sex = inputstring;
+                        break;
+                    case 3:
+                        cout << "Enter input";
+                        cin >> inputdouble;
+                        patients[i].weight = inputdouble;
+                        break;
+                    case 4:
+                        cout << "Enter input";
+                        cin >> inputstring;
+                        patients[i].height = inputdouble;
+                        break;
+                    case 5:
+                        cout << "Enter input";
+                        cin.ignore();
+                        getline(cin, inputstring);
+                        patients[i].history = inputstring;
+                        break;
+                    case 6:
+                        cout << "Enter input";
+                        cin.ignore();
+                        getline(cin, inputstring);
+                        patients[i].serviceDetails = inputstring;
+                        break;
+                    case 7:
+                        patients.erase(patients.begin()+i, patients.begin()+i+1);
+                        break;
+                    case 8:
+                        break;
+                    default:
+                        cout << "Error";
+                }
+                fstream newfile;
+                newfile.open("patientData.txt", ios::out);  // open a file to perform write operation using file object
+                if (newfile.is_open()) {//checking whether the file is open {
+                    for (int i = 0; i < patients.size(); i++) {
+                        newfile << patients[i].name + "\n";
+                        newfile << patients[i].sex + "\n";
+                        newfile << patients[i].weight << endl;
+                        newfile << patients[i].height << endl;
+                        newfile << patients[i].history << endl;
+                        newfile << patients[i].serviceDetails << endl;
+                        newfile << patients[i].type << endl;
+                        newfile << patients[i].numberOfDaysStayed << endl;
+                        newfile << patients[i].dateOfAppointment << endl;
+
+                    }
+                    //inserting text
+                    newfile.close(); //close the file object
+                    cout << "Successfully edited";
+                }
+                return;
+            }
+        }
+        cout<<endl<<"No such patient exists at our facility"<<endl<<endl;
+    }
+
