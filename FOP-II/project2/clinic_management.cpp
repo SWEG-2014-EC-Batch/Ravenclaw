@@ -354,3 +354,59 @@ void registerPatient() {
         }
     }
 };
+
+int main() {
+    PatientRecords records;
+    int choice;
+
+    do {
+        records.readData();
+        // Display menu
+        cout << "Hospital/Clinic Management System" << endl;
+        cout << "1. Register New Patient" << endl;
+        cout << "2. Display Patient Records" << endl;
+        cout << "3. Edit Patient Records" << endl;
+        cout << "4. Doctor's Schedule" << endl;
+        cout << "5. Generate Reports" << endl;
+        cout << "6. Sort Patient Records by Name" << endl;
+        cout << "7. Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+        cin.ignore();
+
+        switch (choice) {
+            case 1:
+                records.registerPatient();
+                break;
+            case 2:
+                records.displayRecords();
+                break;
+            case 3:
+                records.editRecords();
+                break;
+            case 4:
+                records.doctorSchedule();
+                break;
+            case 5:
+                records.generateReports();
+                break;
+            case 6:
+                int order;
+                cout << "Sorting order? (1 for ascending, 2 for descending): ";
+                cin >> order;
+                if (order != 1 && order != 2){
+                    cout << "Error!";
+                } else {
+                    records.sortRecords(order);
+                }
+                break;
+            case 7:
+                cout << "Exiting program..." << endl;
+                break;
+            default:
+                cout << "Invalid choice! Please try again." << endl;
+        }
+    } while (choice != 6);
+
+    return 0;
+}
