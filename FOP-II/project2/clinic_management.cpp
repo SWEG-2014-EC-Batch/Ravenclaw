@@ -315,3 +315,42 @@ void registerPatient() {
             return true;
         }
     }
+
+    static bool byNameDec(const Patient& p1, const Patient& p2)
+    {
+        if (strcmp(p1.name.c_str(),p2.name.c_str()) >= 0)
+            return true;
+        else{
+            return false;
+        }
+    }
+    // Function to sort patient records
+    void sortRecords(int ascending) {
+        // Sort patient records based on a field (e.g., name, weight, etc.)
+        if (ascending == 1){
+            sort(patients.begin(),patients.end(), byNameInc);
+        } else if (ascending == 2){
+            sort(patients.begin(),patients.end(), byNameDec);
+        }
+        fstream newfile;
+        newfile.open("patientData.txt", ios::out);  // open a file to perform write operation using file object
+        if (newfile.is_open()) {//checking whether the file is open {
+            for (int i = 0; i < patients.size(); i++) {
+                newfile << patients[i].name + "\n";
+                newfile << patients[i].sex + "\n";
+                newfile << patients[i].weight << endl;
+                newfile << patients[i].height << endl;
+                newfile << patients[i].history << endl;
+                newfile << patients[i].serviceDetails << endl;
+                newfile << patients[i].type << endl;
+                newfile << patients[i].numberOfDaysStayed << endl;
+                newfile << patients[i].dateOfAppointment << endl;
+
+
+            }
+            //inserting text
+            newfile.close(); //close the file object
+            cout << "Successfully sorted";
+        }
+    }
+};
