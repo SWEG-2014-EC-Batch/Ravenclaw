@@ -78,7 +78,6 @@ void registerPatient() {
         // Get patient details from user input
         Patient patient;
         cout << "Enter patient name: ";
-        cin.ignore();
         getline(cin, patient.name);
         cout << "Enter patient sex: ";
         getline(cin, patient.sex);
@@ -104,7 +103,6 @@ void registerPatient() {
             getline(cin, patient.serviceDetails);
             patient.numberOfDaysStayed = 0;
         }
-        cin.ignore();
         cout << patients.size();
         // Add patient to records
         patients.push_back(patient);
@@ -128,6 +126,7 @@ void registerPatient() {
             newfile.close(); //close the file object
         }
     }
+
  // Function to display patient records
     void displayRecords() {
         string name;
