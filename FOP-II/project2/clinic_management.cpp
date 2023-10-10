@@ -3,9 +3,17 @@
 #include <algorithm>
 #include <fstream>
 #define  MAXBEDS 100
+#define PASS 123
 #include <bits/stdc++.h>
 
 using namespace std;
+
+// Structure to hold patient details
+struct Doctor {
+    string name;
+    string sex;
+    string specialization;
+};
 
 // Structure to hold patient details
 struct Patient {
@@ -34,10 +42,29 @@ double calculateBMI(double weight, double height) {
 class PatientRecords {
 private:
     vector<Patient> patients;
-
+    Doctor doctor[5];
 public:
     // function to read all the data from file when program is launched
     void readData() {
+        // for doctor
+        fstream doctorfile;
+        doctorfile.open("doctorData.txt", ios::in);
+        if (doctorfile.is_open()) {
+            string td;
+            int mid;
+            int i = 0;
+            for (int i = 0; i < 5; i++){
+                getline (doctorfile, td);
+                doctor[i].name = td;
+                getline (doctorfile, td);
+                doctor[i].sex = td;
+                getline (doctorfile, td);
+                doctor[i].specialization = td;
+            }
+            doctorfile.close();
+        }
+
+        //for patient
         patients.clear();
         fstream newfile;
         newfile.open("patientData.txt", ios::in);
@@ -129,7 +156,76 @@ void registerPatient() {
 
  // Function to display patient records
     void displayRecords() {
+        int choice;
+        int id;
         string name;
+
+        cout << "search option"<< endl;
+        cout << "1. ID" << endl << "2. name" << endl;
+        cin >> choice;
+
+        switch (choice){
+            case 1:
+                cout << "Enter ID of patient you want to display: ";
+                cin >> id;
+                for(int i = 0 ; i < patients.size() ; i++)
+        {
+            if (id == patients[i].id){
+            cout <<endl<< "Name:" << patients[i].name<<endl;
+            cout << "Sex:" << patients[i].sex<<endl;
+            cout << "Weight:" << patients[i].weight<<endl;
+            cout << "Height:" << patients[i].height<<endl;
+            cout << "BMI:" << calculateBMI(patients[i].weight, patients[i].height)<<endl;
+            cout << "Weight Level:";
+            if (patients[i].sex == "male" || patients[i].sex == "Male"){
+                    if (calculateBMI(patients[i].weight, patients[i].height) <= 18.5){
+                        cout<< "underweight";
+                    } else if (calculateBMI(patients[i].weight, patients[i].height) > 18.5 && calculateBMI(patients[i].weight, patients[i].height) <= 24.9){
+                        cout<< "normal weight";
+                    } else if (calculateBMI(patients[i].weight, patients[i].height) > 24.9 && calculateBMI(patients[i].weight, patients[i].height) <= 29.9){
+                        cout<< "overweight";
+                    } else if (calculateBMI(patients[i].weight, patients[i].height) >= 30){
+                        cout << "obese";
+                    }
+                } else if (patients[i].sex == "female" || patients[i].sex == "Female"){
+                    if (calculateBMI(patients[i].weight, patients[i].height) <= 20){
+                        cout<< "underweight";
+                    } else if (calculateBMI(patients[i].weight, patients[i].height) > 20 && calculateBMI(patients[i].weight, patients[i].height) <= 27){
+                        cout<< "normal weight";
+                    } else if (calculateBMI(patients[i].weight, patients[i].height) > 27 && calculateBMI(patients[i].weight, patients[i].height) <= 32){
+                        cout<< "overweight";
+                    } else if (calculateBMI(patients[i].weight, patients[i].height) > 32){
+                        cout << "obese";
+                    }
+                } cout <<endl;
+            cout << "Patient Medical History: " <<patients[i].history<<endl;
+            cout << "Services required: " <<patients[i].serviceDetails<<endl;
+            if (patients[i].type == 1)
+            {
+                cout<<"Type: in-patient"<<endl;
+                cout<<"Number of days at hospital: "<<patients[i].numberOfDaysStayed<<endl;
+                cout<<"Level of severity: ";
+                if (patients[i].numberOfDaysStayed < 10){
+                    cout << "Low Severity";
+                } else if (patients[i].numberOfDaysStayed >=10 && patients[i].numberOfDaysStayed < 30){
+                    cout << "Medium Severity";
+                } else if (patients[i].numberOfDaysStayed >= 30){
+                    cout << "High Severity";
+                } cout << endl;
+                cout<<"Cost of bedding: ";
+                double cost;
+                cost = patients[i].numberOfDaysStayed * 50;
+                cout << cost << " dollars";
+            }
+            else{
+                cout<<"Type: out-patient"<<endl;
+                cout<<"Appointment date: "<<patients[i].dateOfAppointment<<endl<<endl;
+            } cout << endl << endl;
+            return ;
+            }
+        }
+                break;
+            case 2:
         cout << "Enter name of patient you want to display: ";
         getline(cin, name);
         for(int i = 0 ; i < patients.size() ; i++)
@@ -188,6 +284,10 @@ void registerPatient() {
             return ;
             }
         }
+        break;
+            default:
+                cout << "Error!";
+        }       
         cout<<endl<<"No such patient exists at our facility"<<endl<<endl;
         // Display patient records in a table format
         // Add your implementation here
@@ -281,6 +381,38 @@ void registerPatient() {
         cout<<endl<<"No such patient exists at our facility"<<endl<<endl;
     }
 
+void doctorSchedule(){
+        cout << endl;
+        cout << "Doctor's Schedule";
+        cout <<endl;
+
+        int count = 0;
+        for(int i = 0; i < patients.size(); i++){
+            if (patients[i].dateOfAppointment == "None" ){
+
+            } else{
+                cout << patients[i].dateOfAppointment << " -- " << patients[i].id << " -- " << patients[i].name << " -- " << patients[i].serviceDetails << " -- " ;
+                if (patients[i].serviceDetails == "Heart"){
+                    cout << doctor[0].name;
+                } else if (patients[i].serviceDetails == "Neural"){
+                    cout << doctor[1].name;
+                } else if (patients[i].serviceDetails == "Pathogen"){
+                    cout << doctor[2].name;
+                }else if (patients[i].serviceDetails == "Gastrointestinal"){
+                    cout << doctor[3].name;
+                } else {
+                    cout << doctor[4].name;
+                }
+                cout << endl;
+                count++;
+            }
+        }
+        if (count == 0){
+            cout << "There are no ongoing appointments" << endl;
+        }
+        cout << endl;
+    }
+
     void generateReports() {
         int males=0,females=0,totalCount=0,vacantBeds=0,IN=0,OUT=0;
 
@@ -323,14 +455,39 @@ void registerPatient() {
             return false;
         }
     }
+static bool byIdInc(const Patient& p1, const Patient& p2)
+    {
+        if (p1.id >= p2.id)
+            return false;
+        else{
+            return true;
+        }
+    }
+    static bool byIdDec(const Patient& p1, const Patient& p2)
+    {
+        if (p1.id >= p2.id)
+            return true;
+        else{
+            return false;
+        }
+    }
     // Function to sort patient records
-    void sortRecords(int ascending) {
+    void sortRecords(int ascending, int type)) {
         // Sort patient records based on a field (e.g., name, weight, etc.)
+        if (type == 1){
         if (ascending == 1){
             sort(patients.begin(),patients.end(), byNameInc);
         } else if (ascending == 2){
             sort(patients.begin(),patients.end(), byNameDec);
         }
+         } else {
+            if (ascending == 1){
+                sort(patients.begin(),patients.end(), byIdInc);
+            } else if (ascending == 2){
+                sort(patients.begin(),patients.end(), byIdDec);
+            }
+        }
+            
         fstream newfile;
         newfile.open("patientData.txt", ios::out);  // open a file to perform write operation using file object
         if (newfile.is_open()) {//checking whether the file is open {
@@ -357,7 +514,7 @@ void registerPatient() {
 int main() {
     PatientRecords records;
     int choice;
-
+    int password;
     do {
         records.readData();
         // Display menu
@@ -375,28 +532,64 @@ int main() {
 
         switch (choice) {
             case 1:
+                cout << "input password: ";
+                cin >> password;
+                if (password == PASS){
                 records.registerPatient();
+                }else {
+                    cout << "Incorrect Password!";
+                    exit(1);
+                }
                 break;
             case 2:
+                cout << "input password: ";
+                cin >> password;
+                if (password == PASS){
                 records.displayRecords();
+                } else {
+                    cout << "Incorrect password!";
+                    exit(1);
+                }
                 break;
             case 3:
+                cout << "input password: ";
+                cin >> password;
+                if (password == PASS){
                 records.editRecords();
+                } else {
+                    cout << "Incorrect Password!";
+                     exit(1);
+                }
                 break;
             case 4:
+                cout << "input password: ";
+                cin >> password;
+                if (password == PASS){
                 records.doctorSchedule();
                 break;
+                 } else {
+                    cout << "Incorrect Password!";
+                     exit(1);
+                }
             case 5:
                 records.generateReports();
                 break;
+               
             case 6:
+                cout << "input password: ";
+                cin >> password;
+                if (password == PASS){
+                int type;
                 int order;
                 cout << "Sorting order? (1 for ascending, 2 for descending): ";
                 cin >> order;
-                if (order != 1 && order != 2){
+                cout << endl <<"Sorting type? (1 for name, 2 for id)";
+                cin >> type;
+                if (order != 1 && order != 2 || type != 1 && type != 2){
                     cout << "Error!";
                 } else {
-                    records.sortRecords(order);
+                    records.sortRecords(order,type);
+                }
                 }
                 break;
             case 7:
@@ -405,7 +598,7 @@ int main() {
             default:
                 cout << "Invalid choice! Please try again." << endl;
         }
-    } while (choice != 6);
+    } while (choice != 7);
 
     return 0;
 }
